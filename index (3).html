@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coach Linda | Leadership · Coaching · Transformation</title>
+  <meta name="description" content="Coach Linda empowers ambitious professionals and visionary leaders to align their career, leadership and lifestyle with the success they truly deserve." />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <style>
+    .stats-bar {
+      background: var(--primary);
+      padding: 24px 0;
+    }
+    .stats-bar-inner {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: var(--container);
+      margin-inline: auto;
+      padding-inline: 24px;
+    }
+    .stat-item { text-align: center; }
+    .stat-num { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; color: var(--gold-light); }
+    .stat-label { font-size: .78rem; color: rgba(255,255,255,.6); letter-spacing: .08em; text-transform: uppercase; }
+    .stat-divider { width: 1px; height: 48px; background: rgba(255,255,255,.15); }
+    .cta-strip {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .cta-strip h2 { color: var(--white); margin-bottom: 14px; }
+    .cta-strip p { color: rgba(255,255,255,.75); margin-bottom: 36px; font-size: 1.05rem; max-width: 600px; margin-inline: auto; }
+    .cta-strip .btn-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .section-header-left { text-align: left; max-width: 100%; margin-bottom: 48px; }
+    .view-all { display: inline-flex; align-items: center; gap: 6px; font-size: .88rem; color: var(--gold); font-weight: 700; transition: gap var(--trans); }
+    .view-all:hover { gap: 10px; }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<!-- ── Hero ─────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content container">
+    <div class="hero-text">
+      <span class="eyebrow fade-up">Begin Your Elevation</span>
+      <h1 class="hero-title fade-up fade-up-d1">
+        You Were Not Built<br>to Simply <em>Survive</em><br>Your Career.
+      </h1>
+      <p class="hero-sub fade-up fade-up-d2">You were built to lead with Purpose, Elegance & Impact. If you've outgrown where you are — you're in the right place.</p>
+      <div class="hero-ctas fade-up fade-up-d3">
+        <a href="book.html" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Begin Your Elevation</a>
+        <a href="services.html" class="btn btn-outline btn-outline--white">Explore Programs</a>
+      </div>
+      <div class="hero-badge fade-up fade-up-d4">
+        <span class="hero-badge-icon">🏆</span>
+        <div class="hero-badge-text">
+          <strong>Trusted by 500+ Professionals</strong>
+          Across Africa and the world
+        </div>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-image-inner">
+        <!-- Replace src with actual Coach Linda photo -->
+        <img src="assets/linda-hero.jpg" alt="Coach Linda" onerror="this.style.display='none'" />
+        <div class="placeholder-figure"></div>
+      </div>
+      <div class="hero-float-card card-1">
+        <div class="float-stat" data-count="500" data-suffix="+">0+</div>
+        <div class="float-label">Lives Transformed</div>
+      </div>
+      <div class="hero-float-card card-2">
+        <div class="float-stat" data-count="12" data-suffix="+">0+</div>
+        <div class="float-label">Years of<br>Expertise</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats Bar ─────────────────────────────────────────── -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item">
+      <div class="stat-num" data-count="500" data-suffix="+">500+</div>
+      <div class="stat-label">Students Enrolled</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num" data-count="12" data-suffix="+">12+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num" data-count="8">8</div>
+      <div class="stat-label">Live Programs</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num" data-count="95" data-suffix="%">95%</div>
+      <div class="stat-label">Satisfaction Rate</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Philosophy ────────────────────────────────────────── -->
+<section class="philosophy">
+  <div class="container">
+    <span class="eyebrow" data-reveal style="display:block;text-align:center">Coach Linda's Philosophy</span>
+    <div class="philosophy-quote" data-reveal data-reveal-delay="1">
+      "Leadership at its highest level is not survival.<br>
+      It is <span>the art of thriving on your own terms.</span>"
+    </div>
+    <div class="gold-line gold-line--center"></div>
+    <p class="philosophy-attribution" data-reveal data-reveal-delay="2">— Coach Linda</p>
+  </div>
+</section>
+
+<!-- ── Three Pillars ─────────────────────────────────────── -->
+<section class="section section--cream">
+  <div class="container">
+    <div class="section-header centered" data-reveal>
+      <span class="eyebrow">What We Offer</span>
+      <h2>Three Pillars of Transformation</h2>
+      <div class="gold-line gold-line--center"></div>
+      <p>Every program is designed to align your career, leadership, and lifestyle with the success you truly deserve.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar-card" data-reveal data-reveal-delay="1">
+        <div class="pillar-icon">🎯</div>
+        <h4>Coaching & Mentorship</h4>
+        <p>One-on-one and group coaching journeys designed to unlock your leadership potential and executive presence.</p>
+        <a href="services.html" class="view-all" style="margin-top:20px;display:inline-flex">Explore <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="pillar-card" data-reveal data-reveal-delay="2">
+        <div class="pillar-icon">🌟</div>
+        <h4>Events & Experiences</h4>
+        <p>Curated masterclasses, tours, and live events that inspire, connect, and elevate your professional community.</p>
+        <a href="events.html" class="view-all" style="margin-top:20px;display:inline-flex">Explore <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="pillar-card" data-reveal data-reveal-delay="3">
+        <div class="pillar-icon">👑</div>
+        <h4>Leadership & Wellness</h4>
+        <p>Holistic programs that integrate executive performance with personal wellbeing for sustainable success.</p>
+        <a href="trainings.html" class="view-all" style="margin-top:20px;display:inline-flex">Explore <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Upcoming Training & Events ────────────────────────── -->
+<section class="section section--ivory">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:20px">
+      <div data-reveal>
+        <span class="eyebrow">What's Coming</span>
+        <h2 style="color:var(--primary)">Upcoming Training<br>& Events</h2>
+        <div class="gold-line"></div>
+      </div>
+      <a href="events.html" class="view-all" data-reveal>View All Events <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="events-grid">
+      <div class="event-card" data-reveal data-reveal-delay="1">
+        <div class="event-thumb" style="background:linear-gradient(135deg,#1B3A52,#2A5470)">
+          <div class="event-date-badge">
+            <span class="day">15</span>
+            <span class="month">Jul</span>
+          </div>
+        </div>
+        <div class="event-body">
+          <h4>Masterclass Tour — Nairobi</h4>
+          <p>An immersive full-day experience on executive presence, influence, and building your leadership legacy.</p>
+          <div class="event-location"><i class="fas fa-map-marker-alt"></i> Serena Hotel, Nairobi</div>
+          <a href="book.html?event=masterclass-nairobi" class="btn btn-primary" style="margin-top:16px;font-size:.85rem;padding:11px 22px">Reserve Your Spot</a>
+        </div>
+      </div>
+      <div class="event-card" data-reveal data-reveal-delay="2">
+        <div class="event-thumb" style="background:linear-gradient(135deg,#2A5470,#1B3A52)">
+          <div class="event-date-badge">
+            <span class="day">28</span>
+            <span class="month">Jul</span>
+          </div>
+        </div>
+        <div class="event-body">
+          <h4>The Elevate Program — Cohort 5</h4>
+          <p>An 8-week transformative journey for ambitious professionals ready to step into their next level of leadership.</p>
+          <div class="event-location"><i class="fas fa-video"></i> Online + Nairobi</div>
+          <a href="book.html?event=elevate-cohort5" class="btn btn-primary" style="margin-top:16px;font-size:.85rem;padding:11px 22px">Discover Details</a>
+        </div>
+      </div>
+      <div class="event-card" data-reveal data-reveal-delay="3">
+        <div class="event-thumb" style="background:linear-gradient(135deg,#0F2233,#1B3A52)">
+          <div class="event-date-badge">
+            <span class="day">10</span>
+            <span class="month">Aug</span>
+          </div>
+        </div>
+        <div class="event-body">
+          <h4>Reset Mastermind</h4>
+          <p>Build a business and career that reflects your brilliance — without burning out. Limited to 20 seats.</p>
+          <div class="event-location"><i class="fas fa-users"></i> Nairobi (In-person)</div>
+          <a href="book.html?event=reset-mastermind" class="btn btn-primary" style="margin-top:16px;font-size:.85rem;padding:11px 22px">Join the Mastermind</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Featured Courses ───────────────────────────────────── -->
+<section class="section section--cream">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:20px">
+      <div data-reveal>
+        <span class="eyebrow">Online Programs</span>
+        <h2 style="color:var(--primary)">Learn at Your Own<br>Pace & Pace</h2>
+        <div class="gold-line"></div>
+      </div>
+      <a href="trainings.html" class="view-all" data-reveal>All Programs <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="courses-grid">
+      <div class="course-card" data-reveal data-reveal-delay="1">
+        <div class="course-thumb">
+          <div class="course-badge">Bestseller</div>
+        </div>
+        <div class="course-body">
+          <h4>Executive Presence Masterclass</h4>
+          <p>Master the art of commanding any room with poise, confidence, and undeniable authority.</p>
+          <div class="course-meta">
+            <div class="course-meta-item"><i class="fas fa-clock"></i> 6 Weeks</div>
+            <div class="course-meta-item"><i class="fas fa-video"></i> 24 Lessons</div>
+            <div class="course-meta-item"><i class="fas fa-users"></i> 142 Students</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div class="course-price">KES 25,000 <span>/ course</span></div>
+            <a href="book.html?course=executive-presence" class="btn btn-primary" style="font-size:.82rem;padding:10px 20px">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+      <div class="course-card" data-reveal data-reveal-delay="2">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#2A5470,#1B3A52)">
+          <div class="course-badge" style="background:var(--primary)">New</div>
+        </div>
+        <div class="course-body">
+          <h4>Emotional Intelligence for Leaders</h4>
+          <p>Elevate your self-awareness, empathy, and interpersonal effectiveness as a modern leader.</p>
+          <div class="course-meta">
+            <div class="course-meta-item"><i class="fas fa-clock"></i> 4 Weeks</div>
+            <div class="course-meta-item"><i class="fas fa-video"></i> 16 Lessons</div>
+            <div class="course-meta-item"><i class="fas fa-users"></i> 89 Students</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div class="course-price">KES 18,000 <span>/ course</span></div>
+            <a href="book.html?course=emotional-intelligence" class="btn btn-primary" style="font-size:.82rem;padding:10px 20px">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+      <div class="course-card" data-reveal data-reveal-delay="3">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#0F2233,#2A5470)">
+          <div class="course-badge" style="background:var(--success)">Popular</div>
+        </div>
+        <div class="course-body">
+          <h4>Negotiation & Influence Strategies</h4>
+          <p>Own your worth, negotiate with confidence, and influence outcomes across every boardroom.</p>
+          <div class="course-meta">
+            <div class="course-meta-item"><i class="fas fa-clock"></i> 5 Weeks</div>
+            <div class="course-meta-item"><i class="fas fa-video"></i> 20 Lessons</div>
+            <div class="course-meta-item"><i class="fas fa-users"></i> 203 Students</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div class="course-price">KES 22,000 <span>/ course</span></div>
+            <a href="book.html?course=negotiation" class="btn btn-primary" style="font-size:.82rem;padding:10px 20px">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About Preview ─────────────────────────────────────── -->
+<section class="section section--ivory">
+  <div class="container">
+    <div class="about-intro">
+      <div class="about-image-wrap" data-reveal>
+        <div class="about-photo">
+          <img src="assets/linda-about.jpg" alt="Coach Linda" onerror="this.style.display='none'" />
+        </div>
+        <div class="about-accent-card">
+          <div class="big-num" data-count="500" data-suffix="+">500+</div>
+          <div class="num-label">Lives Elevated</div>
+        </div>
+      </div>
+      <div class="about-text" data-reveal data-reveal-delay="1">
+        <span class="eyebrow">Meet Your Mentor</span>
+        <h2 style="color:var(--primary)">I work with ambitious professionals who are ready for their next level.</h2>
+        <div class="gold-line"></div>
+        <p>With over a decade of experience in executive coaching, leadership development, and personal transformation, Coach Linda has guided hundreds of professionals to align their career, leadership, and lifestyle with the success they truly deserve.</p>
+        <p>This isn't about working harder. It's about working with <strong>clarity, confidence, and intention</strong> — so that your brilliance is not just noticed, but celebrated and compensated.</p>
+        <div class="credentials-grid">
+          <div class="credential-item">
+            <i class="fas fa-award credential-icon"></i>
+            <span class="credential-text">Certified Executive Coach<br>(ICF Accredited)</span>
+          </div>
+          <div class="credential-item">
+            <i class="fas fa-graduation-cap credential-icon"></i>
+            <span class="credential-text">MBA, Leadership & Organizational Development</span>
+          </div>
+          <div class="credential-item">
+            <i class="fas fa-globe-africa credential-icon"></i>
+            <span class="credential-text">Speaker across 6 African Countries</span>
+          </div>
+          <div class="credential-item">
+            <i class="fas fa-star credential-icon"></i>
+            <span class="credential-text">12+ Years of Coaching Excellence</span>
+          </div>
+        </div>
+        <a href="about.html" class="btn btn-primary" style="margin-top:32px">Meet Coach Linda <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonials ───────────────────────────────────────── -->
+<section class="section section--cream">
+  <div class="container">
+    <div class="section-header centered" data-reveal>
+      <span class="eyebrow">What They Say</span>
+      <h2 style="color:var(--primary)">Voices of Transformation</h2>
+      <div class="gold-line gold-line--center"></div>
+    </div>
+    <div class="testimonials-wrap">
+      <div class="testimonial-card" data-reveal data-reveal-delay="1">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">I work in a male-dominated sector that demands a high competitive spirit. I struggled with emotional intelligence and negotiating skills. Coach Linda delivered beyond expectation. I am more poised, more confident, and finally compensated at my true worth.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">R</div>
+          <div>
+            <div class="testimonial-name">Rehema M.</div>
+            <div class="testimonial-role">Senior Engineer, Mombasa</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card" data-reveal data-reveal-delay="2">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">The Elevate Program is a valuable gift for executives aiming for advancement. It offers profound insights on poise, presence, and emotional intelligence. If you're serious about your next level, this is non-negotiable. Absolutely worth every shilling.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">W</div>
+          <div>
+            <div class="testimonial-name">Waithera Mugo</div>
+            <div class="testimonial-role">Commercial & Tax Lawyer</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card" data-reveal data-reveal-delay="3">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">Coach Linda's programs provide the soft skills that executives and business people need to become truly influential. I was captivated by her warmth, rapport-building abilities, and the depth of practical insight she brings to every session.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">G</div>
+          <div>
+            <div class="testimonial-name">Dr. Gloria N.</div>
+            <div class="testimonial-role">Medical Director, Nairobi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Newsletter ─────────────────────────────────────────── -->
+<section class="newsletter-strip">
+  <div class="container">
+    <span class="eyebrow" style="color:rgba(255,255,255,.7)">Stay Connected</span>
+    <h2>Join the Elevation Community</h2>
+    <p>Receive weekly leadership insights, event updates, and exclusive resources delivered to your inbox.</p>
+    <div class="newsletter-form" id="newsletterForm">
+      <input type="email" id="nlEmail" placeholder="Enter your email address" class="form-control" />
+      <button class="btn btn-primary" onclick="subscribeNewsletter()">
+        <i class="fas fa-paper-plane"></i> Subscribe
+      </button>
+    </div>
+    <div id="nl-alert" style="display:none;margin-top:16px;max-width:520px;margin-inline:auto"></div>
+  </div>
+</section>
+
+<!-- ── CTA Strip ──────────────────────────────────────────── -->
+<div class="cta-strip">
+  <h2>Ready to Begin Your Elevation?</h2>
+  <p>Join 500+ ambitious professionals who have already taken the step into their next level of leadership, impact, and fulfilment.</p>
+  <div class="btn-row">
+    <a href="book.html" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Book a Discovery Call</a>
+    <a href="trainings.html" class="btn btn-outline btn-outline--white">Browse All Programs</a>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="js/main.js"></script>
+<script>
+  injectNav('index.html');
+  injectFooter();
+
+  async function subscribeNewsletter() {
+    const email = document.getElementById('nlEmail').value.trim();
+    if (!email || !email.includes('@')) {
+      showAlert('nl-alert', 'error', 'Please enter a valid email address.');
+      return;
+    }
+    try {
+      const res = await fetch(`${API_BASE}/api/newsletter/subscribe`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      if (res.ok) {
+        showAlert('nl-alert', 'success', '🎉 You\'re subscribed! Check your email for a welcome message.');
+        document.getElementById('nlEmail').value = '';
+      } else {
+        showAlert('nl-alert', 'error', 'Something went wrong. Please try again.');
+      }
+    } catch {
+      showAlert('nl-alert', 'error', 'Unable to connect. Please try again later.');
+    }
+  }
+</script>
+</body>
+</html>

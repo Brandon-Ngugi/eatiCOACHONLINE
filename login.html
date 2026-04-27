@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In | Coach Linda</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<div class="auth-page">
+  <!-- Left Panel -->
+  <div class="auth-panel-left">
+    <div class="auth-left-content">
+      <div class="auth-left-logo">Coach Linda</div>
+      <div class="auth-left-tag">Leadership · Coaching · Transformation</div>
+      <div class="gold-line gold-line--center"></div>
+      <div class="auth-left-quote">
+        "Your next level is waiting — <em>step into it</em> with clarity and confidence."
+      </div>
+      <div style="margin-top:40px">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.7);font-size:.88rem">
+            <i class="fas fa-check-circle" style="color:var(--gold-light)"></i> Access your enrolled courses
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.7);font-size:.88rem">
+            <i class="fas fa-check-circle" style="color:var(--gold-light)"></i> Track your progress
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.7);font-size:.88rem">
+            <i class="fas fa-check-circle" style="color:var(--gold-light)"></i> View upcoming events
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.7);font-size:.88rem">
+            <i class="fas fa-check-circle" style="color:var(--gold-light)"></i> Connect with community
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:48px;text-align:left">
+        <a href="index.html" style="color:rgba(255,255,255,.4);font-size:.8rem;display:flex;align-items:center;gap:6px">
+          <i class="fas fa-arrow-left"></i> Back to Website
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="auth-panel-right">
+    <div class="auth-form-wrap">
+      <div style="margin-bottom:32px">
+        <a href="index.html" style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--primary)">Coach Linda</a>
+      </div>
+      <h2 class="auth-title">Welcome Back</h2>
+      <p class="auth-sub">Log in to access your courses, track your progress, and view upcoming events.</p>
+
+      <div id="login-alert"></div>
+
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="loginEmail" placeholder="you@example.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div style="position:relative">
+          <input type="password" class="form-control" id="loginPassword" placeholder="Your password" style="padding-right:48px" />
+          <button type="button" onclick="togglePwd('loginPassword', this)" 
+                  style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:24px">
+        <a href="#" style="font-size:.82rem;color:var(--gold);font-weight:600">Forgot Password?</a>
+      </div>
+
+      <button class="btn btn-primary" onclick="handleLogin()" id="login-btn" style="width:100%;justify-content:center;font-size:1rem;padding:16px">
+        <i class="fas fa-sign-in-alt"></i> Log In
+      </button>
+
+      <div class="auth-divider">or</div>
+
+      <div class="auth-switch">
+        Don't have an account? <a href="signup.html">Create one here →</a>
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:.82rem;color:var(--text-muted)">
+        Want to enroll in a course? <a href="book.html" style="color:var(--gold);font-weight:600">Book Now</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  // Redirect if already logged in
+  if (getToken()) {
+    const user = getUser();
+    window.location.href = user?.role === 'admin' ? 'admin.html' : 'dashboard.html';
+  }
+
+  function togglePwd(id, btn) {
+    const el = document.getElementById(id);
+    const isText = el.type === 'text';
+    el.type = isText ? 'password' : 'text';
+    btn.innerHTML = `<i class="fas fa-eye${isText ? '' : '-slash'}"></i>`;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleLogin();
+  });
+
+  async function handleLogin() {
+    const email    = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+
+    if (!email || !password) {
+      showAlert('login-alert', 'error', 'Please fill in your email and password.');
+      return;
+    }
+
+    const btn = document.getElementById('login-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem('cl_token', data.token);
+        localStorage.setItem('cl_user', JSON.stringify(data.user));
+        showAlert('login-alert', 'success', '✓ Login successful! Redirecting...');
+        setTimeout(() => {
+          window.location.href = data.user.role === 'admin' ? 'admin.html' : 'dashboard.html';
+        }, 800);
+      } else {
+        showAlert('login-alert', 'error', data.message || 'Invalid email or password. Please try again.');
+      }
+    } catch {
+      showAlert('login-alert', 'error', 'Unable to connect. Please check your internet connection.');
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Log In';
+  }
+</script>
+</body>
+</html>

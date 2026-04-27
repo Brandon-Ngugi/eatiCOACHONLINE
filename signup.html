@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account | Coach Linda</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<div class="auth-page">
+  <!-- Left Panel -->
+  <div class="auth-panel-left">
+    <div class="auth-left-content">
+      <div class="auth-left-logo">Coach Linda</div>
+      <div class="auth-left-tag">Leadership · Coaching · Transformation</div>
+      <div class="gold-line gold-line--center"></div>
+      <div class="auth-left-quote">
+        "Every great leader started <em>exactly where you are</em> — the decision to begin is everything."
+      </div>
+      <div style="margin-top:40px;background:rgba(196,146,58,.1);border:1px solid rgba(196,146,58,.25);border-radius:var(--radius);padding:24px">
+        <div style="color:var(--gold-light);font-weight:700;font-size:.88rem;margin-bottom:12px">🎁 New Member Benefits</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:.82rem;color:rgba(255,255,255,.7);display:flex;gap:8px"><span>✦</span> Free Leadership Assessment</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.7);display:flex;gap:8px"><span>✦</span> Welcome Masterclass Recording</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.7);display:flex;gap:8px"><span>✦</span> Private Community Access</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.7);display:flex;gap:8px"><span>✦</span> Weekly Coaching Tips</div>
+        </div>
+      </div>
+      <div style="margin-top:32px">
+        <a href="index.html" style="color:rgba(255,255,255,.4);font-size:.8rem;display:flex;align-items:center;gap:6px">
+          <i class="fas fa-arrow-left"></i> Back to Website
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="auth-panel-right">
+    <div class="auth-form-wrap">
+      <div style="margin-bottom:28px">
+        <a href="index.html" style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--primary)">Coach Linda</a>
+      </div>
+      <h2 class="auth-title">Create Your Account</h2>
+      <p class="auth-sub">Join 500+ professionals on their elevation journey.</p>
+
+      <div id="signup-alert"></div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name *</label>
+          <input type="text" class="form-control" id="signupFirst" placeholder="Grace" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name *</label>
+          <input type="text" class="form-control" id="signupLast" placeholder="Wanjiku" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address *</label>
+        <input type="email" class="form-control" id="signupEmail" placeholder="you@example.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone / WhatsApp *</label>
+        <input type="tel" class="form-control" id="signupPhone" placeholder="+254 700 000 000" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password *</label>
+        <div style="position:relative">
+          <input type="password" class="form-control" id="signupPwd" placeholder="Minimum 8 characters" style="padding-right:48px" />
+          <button type="button" onclick="togglePwd('signupPwd', this)" 
+                  style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+        <div class="form-hint">Min. 8 characters with at least one number and symbol.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirm Password *</label>
+        <input type="password" class="form-control" id="signupPwdConfirm" placeholder="Re-enter password" />
+      </div>
+      <div class="form-group">
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+          <input type="checkbox" id="signupTerms" style="margin-top:4px;accent-color:var(--gold)" />
+          <span style="font-size:.82rem;color:var(--text-muted)">
+            I agree to the <a href="#" style="color:var(--gold)">Terms & Conditions</a> and
+            <a href="#" style="color:var(--gold)">Privacy Policy</a> and consent to receive
+            coaching communications from Coach Linda.
+          </span>
+        </label>
+      </div>
+
+      <button class="btn btn-primary" onclick="handleSignup()" id="signup-btn" style="width:100%;justify-content:center;font-size:1rem;padding:16px;margin-top:4px">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+
+      <div class="auth-switch" style="margin-top:20px">
+        Already have an account? <a href="login.html">Log in here →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  if (getToken()) window.location.href = 'dashboard.html';
+
+  function togglePwd(id, btn) {
+    const el = document.getElementById(id);
+    el.type = el.type === 'text' ? 'password' : 'text';
+    btn.querySelector('i').className = `fas fa-eye${el.type === 'password' ? '' : '-slash'}`;
+  }
+
+  async function handleSignup() {
+    const firstName = document.getElementById('signupFirst').value.trim();
+    const lastName  = document.getElementById('signupLast').value.trim();
+    const email     = document.getElementById('signupEmail').value.trim();
+    const phone     = document.getElementById('signupPhone').value.trim();
+    const password  = document.getElementById('signupPwd').value;
+    const confirm   = document.getElementById('signupPwdConfirm').value;
+    const terms     = document.getElementById('signupTerms').checked;
+
+    if (!firstName || !lastName || !email || !phone || !password) {
+      return showAlert('signup-alert', 'error', 'Please fill in all required fields.');
+    }
+    if (password.length < 8) {
+      return showAlert('signup-alert', 'error', 'Password must be at least 8 characters.');
+    }
+    if (password !== confirm) {
+      return showAlert('signup-alert', 'error', 'Passwords do not match.');
+    }
+    if (!terms) {
+      return showAlert('signup-alert', 'error', 'Please accept the Terms & Conditions.');
+    }
+
+    const btn = document.getElementById('signup-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email, phone, password })
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem('cl_token', data.token);
+        localStorage.setItem('cl_user', JSON.stringify(data.user));
+        showAlert('signup-alert', 'success', '🎉 Account created! Welcome to the community. Redirecting...');
+        setTimeout(() => window.location.href = 'dashboard.html', 1200);
+      } else {
+        showAlert('signup-alert', 'error', data.message || 'Sign up failed. Please try again.');
+      }
+    } catch {
+      showAlert('signup-alert', 'error', 'Connection error. Please try again later.');
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+  }
+</script>
+</body>
+</html>

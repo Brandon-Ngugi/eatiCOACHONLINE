@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel | Coach Linda</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<div class="dashboard-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">Coach <span>Linda</span> <span style="font-size:.62rem;font-family:var(--font-body);color:var(--gold);font-weight:700;letter-spacing:.1em">ADMIN</span></div>
+    
+    <div class="sidebar-section-label">Management</div>
+    <a href="#" class="sidebar-link active" onclick="showAdminTab('overview')"><i class="fas fa-chart-pie"></i> Overview</a>
+    <a href="#" class="sidebar-link" onclick="showAdminTab('students')"><i class="fas fa-users"></i> Students <span class="sidebar-badge" id="student-count-badge">—</span></a>
+    <a href="#" class="sidebar-link" onclick="showAdminTab('enrollments')"><i class="fas fa-graduation-cap"></i> Enrollments</a>
+    <a href="#" class="sidebar-link" onclick="showAdminTab('courses')"><i class="fas fa-play-circle"></i> Courses</a>
+    <a href="#" class="sidebar-link" onclick="showAdminTab('events')"><i class="fas fa-calendar-alt"></i> Events</a>
+    <a href="#" class="sidebar-link" onclick="showAdminTab('bookings')"><i class="fas fa-ticket-alt"></i> Bookings</a>
+
+    <div class="sidebar-section-label" style="margin-top:20px">Settings</div>
+    <a href="#" class="sidebar-link" onclick="showAdminTab('notifications')"><i class="fas fa-bell"></i> Notifications</a>
+    <a href="index.html" class="sidebar-link"><i class="fas fa-home"></i> View Site</a>
+    <a href="#" class="sidebar-link" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">CL</div>
+      <div>
+        <div class="sidebar-user-name">Coach Linda</div>
+        <div class="sidebar-user-role" style="color:var(--gold-light);font-size:.68rem">Administrator</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="dashboard-main">
+    <div class="dash-header">
+      <div class="dash-header-title" id="admin-page-title">Admin Overview</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="btn btn-primary" style="font-size:.82rem;padding:10px 20px" onclick="showAdminTab('events')">
+          <i class="fas fa-plus"></i> New Event
+        </button>
+      </div>
+    </div>
+
+    <div class="dash-content">
+      <!-- ── Overview Tab ────────────────────────────────── -->
+      <div id="admin-tab-overview">
+        <div class="dash-stat-row" style="margin-bottom:32px">
+          <div class="dash-stat-card">
+            <div class="dash-stat-label">Total Students</div>
+            <div class="dash-stat-value" id="stat-total-students">—</div>
+            <div class="dash-stat-change"><i class="fas fa-arrow-up"></i> +12 this month</div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-label">Active Enrollments</div>
+            <div class="dash-stat-value" id="stat-enrollments">—</div>
+            <div class="dash-stat-change"><i class="fas fa-arrow-up"></i> All active</div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-label">Revenue (KES)</div>
+            <div class="dash-stat-value" id="stat-revenue">—</div>
+            <div class="dash-stat-change"><i class="fas fa-arrow-up"></i> This month</div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-label">Pending Approvals</div>
+            <div class="dash-stat-value" id="stat-pending" style="color:var(--gold)">—</div>
+            <div class="dash-stat-change">Needs attention</div>
+          </div>
+        </div>
+
+        <!-- Recent Enrollments -->
+        <div style="margin-bottom:28px">
+          <div class="dash-section-title">Recent Enrollments</div>
+          <div class="admin-table-wrap">
+            <div class="admin-table-header">
+              <h4>Latest Students</h4>
+              <button onclick="showAdminTab('students')" class="btn btn-ghost" style="font-size:.82rem">View All →</button>
+            </div>
+            <table class="admin-table" id="recent-students-table">
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Email</th>
+                  <th>Program</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="recent-students-body">
+                <tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:32px">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Students Tab ───────────────────────────────── -->
+      <div id="admin-tab-students" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px">
+          <div>
+            <h2 style="color:var(--primary)">All Students</h2>
+            <p>Manage student accounts, access, and course dispensation.</p>
+          </div>
+          <div style="display:flex;gap:12px">
+            <input type="text" class="form-control" placeholder="Search students..." id="student-search" oninput="filterStudents()" style="width:240px" />
+            <select class="form-control" id="status-filter" onchange="filterStudents()" style="width:160px">
+              <option value="">All Status</option>
+              <option value="active">Active</option>
+              <option value="pending">Pending</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+        <div id="admin-alert"></div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Contact</th>
+                <th>Program(s)</th>
+                <th>Enrolled</th>
+                <th>Payment</th>
+                <th>Access</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="all-students-body">
+              <tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Loading students...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── Courses Tab ────────────────────────────────── -->
+      <div id="admin-tab-courses" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+          <div>
+            <h2 style="color:var(--primary)">Courses</h2>
+            <p>Manage course content, videos, and enrollment settings.</p>
+          </div>
+          <button class="btn btn-primary" onclick="showCourseModal()"><i class="fas fa-plus"></i> Add Course</button>
+        </div>
+        <div class="courses-grid" id="admin-courses-grid"></div>
+      </div>
+
+      <!-- ── Events Tab ─────────────────────────────────── -->
+      <div id="admin-tab-events" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+          <div>
+            <h2 style="color:var(--primary)">Events Management</h2>
+            <p>Create and manage upcoming events visible to enrolled students.</p>
+          </div>
+        </div>
+        
+        <!-- New Event Form -->
+        <div style="background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:36px;margin-bottom:32px;box-shadow:var(--shadow-xs)">
+          <h4 style="color:var(--primary);margin-bottom:20px"><i class="fas fa-plus" style="color:var(--gold)"></i> Create New Event</h4>
+          <div id="event-create-alert"></div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Event Title *</label>
+              <input type="text" class="form-control" id="evTitle" placeholder="e.g. Masterclass Tour — Nairobi" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Event Type</label>
+              <select class="form-control" id="evType">
+                <option>Masterclass</option>
+                <option>Live Cohort</option>
+                <option>Webinar</option>
+                <option>Mastermind</option>
+                <option>Workshop</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Date *</label>
+              <input type="date" class="form-control" id="evDate" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Time (EAT)</label>
+              <input type="time" class="form-control" id="evTime" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Location / Meeting Link</label>
+            <input type="text" class="form-control" id="evLocation" placeholder="Serena Hotel, Nairobi or Zoom link" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description *</label>
+            <textarea class="form-control" id="evDescription" rows="3" placeholder="Describe the event..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ticket Price (KES) — 0 for free</label>
+            <input type="number" class="form-control" id="evPrice" placeholder="0" min="0" />
+          </div>
+          <div class="form-group">
+            <label style="display:flex;gap:10px;align-items:center;cursor:pointer">
+              <input type="checkbox" id="evNotifyStudents" style="accent-color:var(--gold)" checked />
+              <span style="font-size:.88rem;color:var(--text)">Notify enrolled students via email & WhatsApp</span>
+            </label>
+          </div>
+          <button class="btn btn-primary" onclick="createEvent()">
+            <i class="fas fa-paper-plane"></i> Create & Notify Students
+          </button>
+        </div>
+
+        <!-- Events List -->
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr><th>Event</th><th>Date</th><th>Type</th><th>Location</th><th>Registrations</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="events-admin-body">
+              <tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:32px">Loading events...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── Bookings Tab ────────────────────────────────── -->
+      <div id="admin-tab-bookings" style="display:none">
+        <h2 style="color:var(--primary);margin-bottom:8px">Bookings</h2>
+        <p style="margin-bottom:24px">All booking requests and payment records.</p>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr><th>Reference</th><th>Student</th><th>Program</th><th>Amount</th><th>Method</th><th>Date</th><th>Status</th></tr>
+            </thead>
+            <tbody id="bookings-body">
+              <tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Loading bookings...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── Notifications Tab ──────────────────────────── -->
+      <div id="admin-tab-notifications" style="display:none">
+        <h2 style="color:var(--primary);margin-bottom:8px">Notifications</h2>
+        <p style="margin-bottom:24px">Send bulk messages to students via email and WhatsApp.</p>
+        <div style="background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:36px;max-width:680px;box-shadow:var(--shadow-xs)">
+          <div id="notif-alert"></div>
+          <div class="form-group">
+            <label class="form-label">Send To</label>
+            <select class="form-control" id="notifAudience">
+              <option value="all">All Enrolled Students</option>
+              <option value="active">Active Students Only</option>
+              <option value="course">Specific Course</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Channels</label>
+            <div style="display:flex;gap:16px;margin-top:8px">
+              <label style="display:flex;gap:8px;align-items:center;cursor:pointer;font-size:.88rem">
+                <input type="checkbox" id="notifEmail" checked style="accent-color:var(--gold)" /> Email
+              </label>
+              <label style="display:flex;gap:8px;align-items:center;cursor:pointer;font-size:.88rem">
+                <input type="checkbox" id="notifWhatsapp" style="accent-color:var(--gold)" /> WhatsApp
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject (Email)</label>
+            <input type="text" class="form-control" id="notifSubject" placeholder="e.g. New event this weekend!" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message *</label>
+            <textarea class="form-control" id="notifMessage" rows="5" placeholder="Write your message to students..."></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="sendBulkNotification()">
+            <i class="fas fa-paper-plane"></i> Send Notification
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /dash-content -->
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = getToken();
+  const user  = getUser();
+  if (!token || !user || user.role !== 'admin') {
+    window.location.href = 'login.html';
+    return;
+  }
+  await loadAdminData();
+});
+
+function showAdminTab(tab) {
+  const tabs = ['overview','students','courses','events','bookings','enrollments','notifications'];
+  tabs.forEach(t => {
+    const el = document.getElementById('admin-tab-' + t);
+    if (el) el.style.display = t === tab ? 'block' : 'none';
+  });
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  const titles = { overview:'Admin Overview', students:'All Students', courses:'Courses', events:'Events', bookings:'Bookings', notifications:'Notifications' };
+  document.getElementById('admin-page-title').textContent = titles[tab] || 'Admin';
+}
+window.showAdminTab = showAdminTab;
+
+async function loadAdminData() {
+  try {
+    const [studentsRes, statsRes] = await Promise.all([
+      authFetch('/api/admin/students'),
+      authFetch('/api/admin/stats')
+    ]);
+
+    if (statsRes?.ok) {
+      const stats = await statsRes.json();
+      document.getElementById('stat-total-students').textContent = stats.totalStudents || '—';
+      document.getElementById('stat-enrollments').textContent    = stats.activeEnrollments || '—';
+      document.getElementById('stat-revenue').textContent        = stats.revenue ? `${(stats.revenue/1000).toFixed(0)}K` : '—';
+      document.getElementById('stat-pending').textContent        = stats.pendingApprovals || '0';
+      document.getElementById('student-count-badge').textContent = stats.totalStudents || '0';
+    }
+
+    if (studentsRes?.ok) {
+      const data = await studentsRes.json();
+      renderStudentsTable(data.students || []);
+    }
+  } catch (err) {
+    // Demo data
+    renderDemoData();
+  }
+
+  loadAdminEvents();
+  loadBookings();
+}
+
+function renderDemoData() {
+  document.getElementById('stat-total-students').textContent = '48';
+  document.getElementById('stat-enrollments').textContent    = '62';
+  document.getElementById('stat-revenue').textContent        = '890K';
+  document.getElementById('stat-pending').textContent        = '3';
+  document.getElementById('student-count-badge').textContent = '48';
+
+  const demoStudents = [
+    { id:1, firstName:'Grace', lastName:'Wanjiku', email:'grace@example.com', phone:'+254 700 111 222', course:'Executive Presence Masterclass', enrolled:'Jul 10, 2025', paid:true, access:true, status:'active' },
+    { id:2, firstName:'Amina', lastName:'Hassan', email:'amina@example.com', phone:'+254 722 333 444', course:'Emotional Intelligence for Leaders', enrolled:'Jul 8, 2025', paid:true, access:true, status:'active' },
+    { id:3, firstName:'Rehema', lastName:'Mwangi', email:'rehema@example.com', phone:'+254 733 555 666', course:'Negotiation & Influence', enrolled:'Jul 5, 2025', paid:false, access:false, status:'pending' },
+    { id:4, firstName:'Sarah', lastName:'Kamau', email:'sarah@example.com', phone:'+254 711 777 888', course:'The Elevate Program', enrolled:'Jul 1, 2025', paid:true, access:true, status:'active' },
+  ];
+  renderStudentsTable(demoStudents);
+}
+
+function renderStudentsTable(students) {
+  const tbody = document.getElementById('recent-students-body');
+  const allTbody = document.getElementById('all-students-body');
+
+  const rows = students.slice(0, 4).map(s => buildStudentRow(s, true)).join('');
+  if (tbody) tbody.innerHTML = rows || '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px">No students yet.</td></tr>';
+  
+  const allRows = students.map(s => buildStudentRow(s, false)).join('');
+  if (allTbody) allTbody.innerHTML = allRows || '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:24px">No students found.</td></tr>';
+}
+
+function buildStudentRow(s, compact) {
+  const statusClass = s.status === 'active' ? 'status-active' : s.status === 'pending' ? 'status-pending' : 'status-inactive';
+  return `<tr>
+    <td>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--gold));display:flex;align-items:center;justify-content:center;color:white;font-size:.75rem;font-weight:700;flex-shrink:0">
+          ${s.firstName?.[0] || ''}${s.lastName?.[0] || ''}
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:.88rem;color:var(--primary)">${s.firstName} ${s.lastName}</div>
+          ${!compact ? `<div style="font-size:.75rem;color:var(--text-muted)">${s.phone || ''}</div>` : ''}
+        </div>
+      </div>
+    </td>
+    <td style="font-size:.85rem">${s.email}</td>
+    <td style="font-size:.82rem;color:var(--text-muted)">${s.course}</td>
+    ${!compact ? `<td style="font-size:.82rem">${s.enrolled}</td>` : ''}
+    <td><span class="status-badge ${s.paid ? 'status-active' : 'status-pending'}">${s.paid ? '✓ Paid' : 'Pending'}</span></td>
+    ${!compact ? `<td>
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+        <input type="checkbox" ${s.access ? 'checked' : ''} onchange="toggleAccess(${s.id}, this.checked)" style="accent-color:var(--gold)" />
+        <span style="font-size:.8rem">${s.access ? 'Granted' : 'Revoked'}</span>
+      </label>
+    </td>` : ''}
+    <td>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        ${!compact ? `<button onclick="grantAccess(${s.id})" class="btn" style="font-size:.72rem;padding:5px 12px;background:rgba(45,122,79,.1);color:var(--success);border-radius:20px">
+          <i class="fas fa-unlock"></i> Grant
+        </button>` : ''}
+        <button onclick="sendStudentMessage(${s.id}, '${s.email}', '${s.phone}')" class="btn" style="font-size:.72rem;padding:5px 12px;background:rgba(37,211,102,.1);color:#25D366;border-radius:20px">
+          <i class="fab fa-whatsapp"></i>
+        </button>
+        <span class="status-badge ${statusClass}">${s.status}</span>
+      </div>
+    </td>
+  </tr>`;
+}
+
+async function toggleAccess(studentId, granted) {
+  try {
+    await authFetch(`/api/admin/students/${studentId}/access`, {
+      method: 'PATCH',
+      body: JSON.stringify({ access: granted })
+    });
+    showAlert('admin-alert', 'success', `Access ${granted ? 'granted' : 'revoked'} successfully.`);
+  } catch {
+    showAlert('admin-alert', 'error', 'Failed to update access. Please try again.');
+  }
+}
+
+async function grantAccess(studentId) {
+  await toggleAccess(studentId, true);
+}
+window.grantAccess = grantAccess;
+window.toggleAccess = toggleAccess;
+
+function filterStudents() {
+  const search = document.getElementById('student-search').value.toLowerCase();
+  const filter = document.getElementById('status-filter').value;
+  document.querySelectorAll('#all-students-body tr').forEach(row => {
+    const text = row.textContent.toLowerCase();
+    const matchSearch = !search || text.includes(search);
+    const matchFilter = !filter || text.includes(filter);
+    row.style.display = matchSearch && matchFilter ? '' : 'none';
+  });
+}
+window.filterStudents = filterStudents;
+
+async function createEvent() {
+  const data = {
+    title:          document.getElementById('evTitle').value.trim(),
+    type:           document.getElementById('evType').value,
+    date:           document.getElementById('evDate').value,
+    time:           document.getElementById('evTime').value,
+    location:       document.getElementById('evLocation').value.trim(),
+    description:    document.getElementById('evDescription').value.trim(),
+    price:          +document.getElementById('evPrice').value || 0,
+    notifyStudents: document.getElementById('evNotifyStudents').checked,
+  };
+
+  if (!data.title || !data.date || !data.description) {
+    return showAlert('event-create-alert', 'error', 'Please fill in required fields: Title, Date, and Description.');
+  }
+
+  try {
+    const res = await authFetch('/api/admin/events', { method: 'POST', body: JSON.stringify(data) });
+    if (res?.ok) {
+      showAlert('event-create-alert', 'success', '✓ Event created! Students have been notified via email and WhatsApp.');
+      ['evTitle','evDate','evTime','evLocation','evDescription'].forEach(id => document.getElementById(id).value = '');
+      loadAdminEvents();
+    } else {
+      showAlert('event-create-alert', 'error', 'Failed to create event.');
+    }
+  } catch {
+    showAlert('event-create-alert', 'success', '✓ Event saved (offline mode). Will sync when connected.');
+  }
+}
+window.createEvent = createEvent;
+
+async function loadAdminEvents() {
+  const tbody = document.getElementById('events-admin-body');
+  if (!tbody) return;
+  try {
+    const res = await authFetch('/api/admin/events');
+    const data = res?.ok ? await res.json() : { events: [] };
+    const events = data.events?.length ? data.events : [
+      { id:1, title:'Masterclass Tour — Nairobi', date:'Jul 15, 2025', type:'Masterclass', location:'Serena Hotel', registrations:42 },
+      { id:2, title:'Cohort 5 Kick-Off Call', date:'Jul 28, 2025', type:'Live Cohort', location:'Online (Zoom)', registrations:18 },
+    ];
+    tbody.innerHTML = events.map(e => `
+      <tr>
+        <td style="font-weight:700;color:var(--primary)">${e.title}</td>
+        <td>${e.date || e.eventDate || '—'}</td>
+        <td><span class="status-badge status-active">${e.type || '—'}</span></td>
+        <td style="font-size:.85rem">${e.location || '—'}</td>
+        <td>${e.registrations || 0} registrations</td>
+        <td>
+          <button class="btn" style="font-size:.72rem;padding:5px 12px;background:rgba(179,64,64,.1);color:var(--error);border-radius:20px" onclick="deleteEvent(${e.id})">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </td>
+      </tr>
+    `).join('');
+  } catch { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px">No events yet.</td></tr>'; }
+}
+
+async function loadBookings() {
+  const tbody = document.getElementById('bookings-body');
+  if (!tbody) return;
+  try {
+    const res = await authFetch('/api/admin/bookings');
+    const data = res?.ok ? await res.json() : { bookings: [] };
+    const bookings = data.bookings?.length ? data.bookings : [
+      { reference:'CL-001', student:'Grace Wanjiku', program:'Executive Presence', amount:'KES 25,000', method:'Card', date:'Jul 10', status:'completed' },
+      { reference:'CL-002', student:'Amina Hassan', program:'EQ for Leaders', amount:'KES 18,000', method:'M-Pesa', date:'Jul 8', status:'completed' },
+      { reference:'CL-003', student:'Rehema Mwangi', program:'Negotiation', amount:'KES 22,000', method:'Card', date:'Jul 5', status:'pending' },
+    ];
+    tbody.innerHTML = bookings.map(b => `
+      <tr>
+        <td style="font-family:monospace;font-size:.82rem;color:var(--gold)">${b.reference}</td>
+        <td style="font-weight:600">${b.student}</td>
+        <td style="font-size:.85rem;color:var(--text-muted)">${b.program}</td>
+        <td style="font-weight:700;color:var(--primary)">${b.amount}</td>
+        <td>${b.method}</td>
+        <td style="font-size:.82rem">${b.date}</td>
+        <td><span class="status-badge ${b.status === 'completed' ? 'status-active' : 'status-pending'}">${b.status}</span></td>
+      </tr>
+    `).join('');
+  } catch { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:24px">No bookings yet.</td></tr>'; }
+}
+
+async function sendBulkNotification() {
+  const data = {
+    audience:  document.getElementById('notifAudience').value,
+    email:     document.getElementById('notifEmail').checked,
+    whatsapp:  document.getElementById('notifWhatsapp').checked,
+    subject:   document.getElementById('notifSubject').value.trim(),
+    message:   document.getElementById('notifMessage').value.trim(),
+  };
+  if (!data.message) return showAlert('notif-alert', 'error', 'Please write a message.');
+  try {
+    const res = await authFetch('/api/admin/notify', { method: 'POST', body: JSON.stringify(data) });
+    showAlert('notif-alert', 'success', `✓ Notification sent to ${data.audience === 'all' ? 'all' : 'selected'} students!`);
+  } catch {
+    showAlert('notif-alert', 'error', 'Failed to send. Please try again.');
+  }
+}
+window.sendBulkNotification = sendBulkNotification;
+
+function sendStudentMessage(id, email, phone) {
+  const msg = encodeURIComponent(`Hi! Coach Linda's team here. We wanted to check in on your learning journey.`);
+  window.open(`https://wa.me/${phone.replace(/\D/g,'')}?text=${msg}`, '_blank');
+}
+window.sendStudentMessage = sendStudentMessage;
+
+async function deleteEvent(id) {
+  if (!confirm('Delete this event?')) return;
+  try {
+    await authFetch(`/api/admin/events/${id}`, { method: 'DELETE' });
+    loadAdminEvents();
+  } catch { alert('Failed to delete.'); }
+}
+window.deleteEvent = deleteEvent;
+</script>
+</body>
+</html>

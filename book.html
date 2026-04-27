@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Program | Coach Linda</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script async src="https://pay.google.com/gp/p/js/pay.js"></script>
+</head>
+<body class="booking-page">
+
+<div id="nav-placeholder"></div>
+
+<!-- ── Booking Hero ───────────────────────────────────────── -->
+<div class="booking-hero">
+  <span class="eyebrow" style="color:var(--gold-light)">Enrollment</span>
+  <h1>Book Your Program</h1>
+  <p>Fill in the details below to secure your place. A confirmation will be sent to your email and WhatsApp.</p>
+</div>
+
+<!-- ── Booking Form ───────────────────────────────────────── -->
+<div class="booking-wrap">
+  <div id="booking-alert"></div>
+  <div class="booking-card">
+    <!-- Steps -->
+    <div class="booking-steps">
+      <div class="step-item active" id="step-1-indicator">
+        <div class="step-num">1</div>
+        <div class="step-label">Your Details</div>
+      </div>
+      <div class="step-item" id="step-2-indicator">
+        <div class="step-num">2</div>
+        <div class="step-label">Choose Program</div>
+      </div>
+      <div class="step-item" id="step-3-indicator">
+        <div class="step-num">3</div>
+        <div class="step-label">Payment</div>
+      </div>
+    </div>
+
+    <!-- Step 1: Personal Details -->
+    <div id="step-1" class="step-content">
+      <h3 style="color:var(--primary);margin-bottom:8px">Your Details</h3>
+      <p style="margin-bottom:28px;font-size:.9rem">Tell us a bit about yourself so we can personalise your experience.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name *</label>
+          <input type="text" class="form-control" id="firstName" placeholder="e.g. Grace" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name *</label>
+          <input type="text" class="form-control" id="lastName" placeholder="e.g. Wanjiku" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address *</label>
+        <input type="email" class="form-control" id="email" placeholder="grace@example.com" required />
+        <div class="form-hint">Your booking confirmation will be sent here.</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone / WhatsApp *</label>
+          <input type="tel" class="form-control" id="phone" placeholder="+254 700 000 000" required />
+          <div class="form-hint">WhatsApp updates will be sent here.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Profession</label>
+          <input type="text" class="form-control" id="profession" placeholder="e.g. Marketing Manager" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">What brings you to Coach Linda? *</label>
+        <textarea class="form-control" id="motivation" rows="3" placeholder="Share your goals and what you hope to achieve..." style="resize:vertical"></textarea>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:8px">
+        <button class="btn btn-primary" onclick="goToStep(2)">Continue <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- Step 2: Choose Program -->
+    <div id="step-2" class="step-content" style="display:none">
+      <h3 style="color:var(--primary);margin-bottom:8px">Choose Your Program</h3>
+      <p style="margin-bottom:28px;font-size:.9rem">Select the program you'd like to enroll in.</p>
+
+      <div id="program-list" style="display:grid;gap:16px;margin-bottom:28px"></div>
+
+      <div class="form-group">
+        <label class="form-label">Preferred Start Date</label>
+        <input type="date" class="form-control" id="startDate" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">How did you hear about us?</label>
+        <select class="form-control" id="referral">
+          <option value="">Select an option</option>
+          <option>Instagram</option>
+          <option>LinkedIn</option>
+          <option>WhatsApp</option>
+          <option>Referred by a friend</option>
+          <option>Google Search</option>
+          <option>YouTube</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px">
+        <button class="btn btn-ghost" onclick="goToStep(1)"><i class="fas fa-arrow-left"></i> Back</button>
+        <button class="btn btn-primary" onclick="goToStep(3)">Continue to Payment <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- Step 3: Payment -->
+    <div id="step-3" class="step-content" style="display:none">
+      <h3 style="color:var(--primary);margin-bottom:8px">Secure Payment</h3>
+      <p style="margin-bottom:20px;font-size:.9rem">Your payment is secured with industry-standard encryption.</p>
+
+      <!-- Order Summary -->
+      <div style="background:var(--ivory);border-radius:var(--radius-sm);padding:20px;margin-bottom:28px;border:1px solid var(--border)">
+        <div style="font-weight:700;color:var(--primary);margin-bottom:12px;font-size:.9rem">Order Summary</div>
+        <div id="order-summary-details"></div>
+        <div style="border-top:1px solid var(--border);margin-top:12px;padding-top:12px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-weight:700;color:var(--primary)">Total</span>
+          <span id="order-total" style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--gold)"></span>
+        </div>
+      </div>
+
+      <label class="form-label" style="margin-bottom:12px">Payment Method</label>
+      <div class="payment-methods">
+        <button class="payment-method-btn selected" onclick="selectPayment(this,'card')">
+          <i class="fas fa-credit-card"></i> Card
+        </button>
+        <button class="payment-method-btn" onclick="selectPayment(this,'mpesa')">
+          <i class="fas fa-mobile-alt"></i> M-Pesa
+        </button>
+        <button class="payment-method-btn" onclick="selectPayment(this,'googlepay')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" height="20" alt="Google Pay" style="object-fit:contain" />
+        </button>
+      </div>
+
+      <!-- Card Fields -->
+      <div id="card-fields" style="margin-bottom:20px">
+        <div class="form-group">
+          <label class="form-label">Cardholder Name</label>
+          <input type="text" class="form-control" id="cardName" placeholder="Name as on card" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Card Number</label>
+          <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCardNumber(this)" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Expiry Date</label>
+            <input type="text" class="form-control" id="cardExpiry" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">CVV</label>
+            <input type="text" class="form-control" id="cardCvv" placeholder="123" maxlength="4" />
+          </div>
+        </div>
+      </div>
+
+      <!-- M-Pesa Fields -->
+      <div id="mpesa-fields" style="display:none;margin-bottom:20px">
+        <div class="form-group">
+          <label class="form-label">M-Pesa Phone Number</label>
+          <input type="tel" class="form-control" id="mpesaPhone" placeholder="07XX XXX XXX" />
+          <div class="form-hint">You will receive an STK push on this number.</div>
+        </div>
+        <div class="alert alert-info" style="display:flex">
+          <i class="fas fa-info-circle"></i>
+          After clicking "Complete Booking", you'll receive an M-Pesa prompt on your phone. Enter your PIN to confirm payment.
+        </div>
+      </div>
+
+      <!-- Google Pay Button -->
+      <div id="googlepay-fields" style="display:none;margin-bottom:20px">
+        <div id="google-pay-button-container"></div>
+      </div>
+
+      <div class="form-group">
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+          <input type="checkbox" id="terms" style="margin-top:4px;accent-color:var(--gold)" />
+          <span style="font-size:.85rem;color:var(--text-muted)">
+            I agree to the <a href="#" style="color:var(--gold)">Terms & Conditions</a> and
+            <a href="#" style="color:var(--gold)">Privacy Policy</a>. I understand that enrollment
+            is subject to payment confirmation.
+          </span>
+        </label>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-top:8px;align-items:center;flex-wrap:wrap;gap:12px">
+        <button class="btn btn-ghost" onclick="goToStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
+        <button class="btn btn-primary" onclick="submitBooking()" id="pay-btn" style="font-size:1rem;padding:16px 36px">
+          <i class="fas fa-lock"></i> Complete Booking
+        </button>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:8px;margin-top:20px;color:var(--text-muted);font-size:.78rem">
+        <i class="fas fa-shield-alt" style="color:var(--success)"></i>
+        256-bit SSL encryption · Secure payment gateway · PCI DSS compliant
+      </div>
+    </div>
+
+    <!-- Step 4: Confirmation -->
+    <div id="step-4" class="step-content" style="display:none;text-align:center;padding:40px 0">
+      <div style="width:80px;height:80px;border-radius:50%;background:rgba(45,122,79,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2rem;color:var(--success)">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h2 style="color:var(--primary);margin-bottom:12px">You're Enrolled!</h2>
+      <p style="margin-bottom:24px">A confirmation has been sent to your email and WhatsApp. Coach Linda's team will be in touch within 24 hours to welcome you and share next steps.</p>
+      <div style="background:var(--ivory);border-radius:var(--radius-sm);padding:20px;text-align:left;border:1px solid var(--border);margin-bottom:28px" id="confirmation-details"></div>
+      <a href="login.html" class="btn btn-primary"><i class="fas fa-user"></i> Access Your Dashboard</a>
+    </div>
+
+  </div>
+
+  <!-- Trust Badges -->
+  <div style="display:flex;justify-content:center;gap:32px;margin-top:32px;flex-wrap:wrap;color:var(--text-muted);font-size:.8rem">
+    <div style="display:flex;align-items:center;gap:6px"><i class="fas fa-shield-alt" style="color:var(--gold)"></i> Secure Payments</div>
+    <div style="display:flex;align-items:center;gap:6px"><i class="fas fa-undo" style="color:var(--gold)"></i> 7-Day Money Back</div>
+    <div style="display:flex;align-items:center;gap:6px"><i class="fas fa-headset" style="color:var(--gold)"></i> 24/7 Support</div>
+    <div style="display:flex;align-items:center;gap:6px"><i class="fas fa-certificate" style="color:var(--gold)"></i> Certified Programs</div>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="js/main.js"></script>
+<script>
+injectNav('book.html');
+injectFooter();
+
+const PROGRAMS = [
+  { id: 'executive-presence', name: 'Executive Presence Masterclass', duration: '6 Weeks', price: 25000, badge: 'Bestseller' },
+  { id: 'emotional-intelligence', name: 'Emotional Intelligence for Leaders', duration: '4 Weeks', price: 18000, badge: 'New' },
+  { id: 'negotiation', name: 'Negotiation & Influence Strategies', duration: '5 Weeks', price: 22000, badge: 'Popular' },
+  { id: 'elevate-cohort5', name: 'The Elevate Program — Cohort 5', duration: '8 Weeks', price: 45000, badge: 'Live Cohort' },
+  { id: 'masterclass-nairobi', name: 'Masterclass Tour — Nairobi', duration: '1 Day', price: 8500, badge: 'Event' },
+  { id: 'reset-mastermind', name: 'Reset Mastermind', duration: '1 Day', price: 12000, badge: 'Limited Seats' },
+];
+
+let selectedProgram = null;
+let selectedPaymentMethod = 'card';
+
+// Pre-select from URL params
+const urlParams = new URLSearchParams(window.location.search);
+const preselect = urlParams.get('course') || urlParams.get('event');
+
+function renderPrograms() {
+  const container = document.getElementById('program-list');
+  container.innerHTML = PROGRAMS.map(p => `
+    <div class="program-option ${preselect === p.id ? 'selected' : ''}" 
+         id="prog-${p.id}"
+         onclick="selectProgram('${p.id}')"
+         style="border:2px solid ${preselect === p.id ? 'var(--gold)' : 'var(--border)'};
+                border-radius:var(--radius-sm);padding:18px 20px;cursor:pointer;
+                background:${preselect === p.id ? 'var(--gold-pale)' : 'var(--white)'};
+                transition:all .2s;display:flex;align-items:center;justify-content:space-between;gap:12px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="width:20px;height:20px;border-radius:50%;border:2px solid ${preselect === p.id ? 'var(--gold)' : 'var(--border)'};
+                    display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          ${preselect === p.id ? '<div style="width:10px;height:10px;border-radius:50%;background:var(--gold)"></div>' : ''}
+        </div>
+        <div>
+          <div style="font-weight:700;color:var(--primary);font-size:.92rem">${p.name}</div>
+          <div style="font-size:.78rem;color:var(--text-muted);margin-top:2px">${p.duration} · <span style="background:var(--gold-pale);color:var(--gold);padding:2px 8px;border-radius:20px;font-weight:700">${p.badge}</span></div>
+        </div>
+      </div>
+      <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--gold);white-space:nowrap">
+        KES ${p.price.toLocaleString()}
+      </div>
+    </div>
+  `).join('');
+
+  if (preselect) selectProgram(preselect);
+}
+
+function selectProgram(id) {
+  selectedProgram = PROGRAMS.find(p => p.id === id);
+  PROGRAMS.forEach(p => {
+    const el = document.getElementById('prog-' + p.id);
+    if (!el) return;
+    const isSelected = p.id === id;
+    el.style.borderColor = isSelected ? 'var(--gold)' : 'var(--border)';
+    el.style.background   = isSelected ? 'var(--gold-pale)' : 'var(--white)';
+    el.querySelector('div > div').style.borderColor = isSelected ? 'var(--gold)' : 'var(--border)';
+    el.querySelector('div > div').innerHTML = isSelected ? '<div style="width:10px;height:10px;border-radius:50%;background:var(--gold)"></div>' : '';
+  });
+  updateOrderSummary();
+}
+
+function updateOrderSummary() {
+  if (!selectedProgram) return;
+  document.getElementById('order-summary-details').innerHTML = `
+    <div style="display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:6px">
+      <span style="color:var(--text-muted)">Program</span>
+      <span style="font-weight:600;color:var(--text)">${selectedProgram.name}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:.88rem">
+      <span style="color:var(--text-muted)">Duration</span>
+      <span style="color:var(--text)">${selectedProgram.duration}</span>
+    </div>`;
+  document.getElementById('order-total').textContent = `KES ${selectedProgram.price.toLocaleString()}`;
+}
+
+function goToStep(n) {
+  if (n === 2) {
+    const required = ['firstName','lastName','email','phone','motivation'];
+    for (const id of required) {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = 'var(--error)';
+        el.focus();
+        showAlert('booking-alert', 'error', 'Please fill in all required fields.');
+        return;
+      }
+      el.style.borderColor = '';
+    }
+  }
+  if (n === 3) {
+    if (!selectedProgram) {
+      showAlert('booking-alert', 'error', 'Please select a program.');
+      return;
+    }
+    updateOrderSummary();
+  }
+
+  // Update indicators
+  [1,2,3].forEach(i => {
+    const ind = document.getElementById('step-'+i+'-indicator');
+    ind.className = 'step-item' + (i < n ? ' done' : '') + (i === n ? ' active' : '');
+  });
+
+  document.querySelectorAll('.step-content').forEach(el => el.style.display = 'none');
+  document.getElementById('step-'+n).style.display = 'block';
+  document.getElementById('booking-alert').style.display = 'none';
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+}
+
+function selectPayment(btn, method) {
+  selectedPaymentMethod = method;
+  document.querySelectorAll('.payment-method-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('card-fields').style.display = method === 'card' ? 'block' : 'none';
+  document.getElementById('mpesa-fields').style.display = method === 'mpesa' ? 'block' : 'none';
+  document.getElementById('googlepay-fields').style.display = method === 'googlepay' ? 'block' : 'none';
+  if (method === 'googlepay') initGooglePayButton();
+}
+
+function initGooglePayButton() {
+  if (!window.google) return;
+  const container = document.getElementById('google-pay-button-container');
+  if (container.innerHTML) return;
+  const { client, paymentRequest } = initGooglePay(
+    selectedProgram?.price || 0,
+    selectedProgram?.id,
+    selectedProgram?.name
+  ) || {};
+  if (!client) return;
+  client.isReadyToPay({ apiVersion: 2, apiVersionMinor: 0, allowedPaymentMethods: paymentRequest.allowedPaymentMethods })
+    .then(r => {
+      if (r.result) {
+        const btn = client.createButton({ onClick: () => client.loadPaymentData(paymentRequest).then(processPaymentData) });
+        container.appendChild(btn);
+      }
+    });
+}
+
+async function processPaymentData(paymentData) {
+  // Send token to backend for processing
+  const token = paymentData.paymentMethodData.tokenizationData.token;
+  await finalizeBooking({ paymentToken: token, gateway: 'googlepay' });
+}
+
+function formatCardNumber(el) {
+  let v = el.value.replace(/\D/g, '').slice(0, 16);
+  el.value = v.replace(/(.{4})/g, '$1 ').trim();
+}
+function formatExpiry(el) {
+  let v = el.value.replace(/\D/g, '').slice(0, 4);
+  if (v.length >= 2) v = v.slice(0,2) + ' / ' + v.slice(2);
+  el.value = v;
+}
+
+async function submitBooking() {
+  if (!document.getElementById('terms').checked) {
+    showAlert('booking-alert', 'error', 'Please accept the Terms & Conditions to proceed.');
+    return;
+  }
+  const btn = document.getElementById('pay-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+  await finalizeBooking({ gateway: selectedPaymentMethod });
+}
+
+async function finalizeBooking(paymentData) {
+  const data = {
+    firstName:  document.getElementById('firstName').value,
+    lastName:   document.getElementById('lastName').value,
+    email:      document.getElementById('email').value,
+    phone:      document.getElementById('phone').value,
+    profession: document.getElementById('profession').value,
+    motivation: document.getElementById('motivation').value,
+    programId:  selectedProgram?.id,
+    programName:selectedProgram?.name,
+    amount:     selectedProgram?.price,
+    referral:   document.getElementById('referral').value,
+    startDate:  document.getElementById('startDate').value,
+    ...paymentData
+  };
+
+  try {
+    const res = await fetch(`${API_BASE}/api/bookings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    if (res.ok) {
+      document.getElementById('confirmation-details').innerHTML = `
+        <div style="font-size:.88rem;line-height:2;color:var(--text)">
+          <strong>Name:</strong> ${data.firstName} ${data.lastName}<br>
+          <strong>Program:</strong> ${data.programName}<br>
+          <strong>Email:</strong> ${data.email}<br>
+          <strong>WhatsApp:</strong> ${data.phone}<br>
+          <strong>Reference:</strong> <span style="color:var(--gold)">${result.reference || 'CL-' + Date.now()}</span>
+        </div>`;
+      document.querySelectorAll('.step-content').forEach(el => el.style.display = 'none');
+      document.getElementById('step-4').style.display = 'block';
+      [1,2,3].forEach(i => document.getElementById('step-'+i+'-indicator').classList.add('done'));
+    } else {
+      showAlert('booking-alert', 'error', result.message || 'Payment failed. Please try again.');
+    }
+  } catch (err) {
+    showAlert('booking-alert', 'error', 'Connection error. Please check your internet and try again.');
+  }
+  
+  const btn = document.getElementById('pay-btn');
+  if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-lock"></i> Complete Booking'; }
+}
+
+renderPrograms();
+</script>
+</body>
+</html>

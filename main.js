@@ -129,7 +129,7 @@ function injectFooter() {
       </div>
       <div class="footer-contact-item">
         <i class="fab fa-whatsapp"></i>
-        <span>+254 700 000 000</span>
+        <span>Coach Linda</span>
       </div>
       <div class="footer-contact-item">
         <i class="fas fa-map-marker-alt"></i>

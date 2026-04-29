@@ -1,3 +1,46 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  "version": 2,
+  "name": "coach-linda-academy",
+  "builds": [
+    { "src": "**/*.html", "use": "@vercel/static" },
+    { "src": "**/*.css",  "use": "@vercel/static" },
+    { "src": "**/*.js",   "use": "@vercel/static" },
+    { "src": "**/*.png",  "use": "@vercel/static" },
+    { "src": "**/*.jpg",  "use": "@vercel/static" },
+    { "src": "**/*.svg",  "use": "@vercel/static" },
+    { "src": "**/*.ico",  "use": "@vercel/static" }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://coach-linda-api.onrender.com/api/$1",
+      "headers": {
+        "X-Forwarded-Host": "$host",
+        "X-Forwarded-Proto": "https"
+      }
+    },
+    { "src": "/",            "dest": "/index.html" },
+    { "src": "/courses",     "dest": "/courses.html" },
+    { "src": "/booking",     "dest": "/booking.html" },
+    { "src": "/dashboard",   "dest": "/dashboard.html" },
+    { "src": "/events",      "dest": "/events.html" },
+    { "src": "/login",       "dest": "/login.html" },
+    { "src": "/register",    "dest": "/register.html" },
+    { "src": "/about",       "dest": "/about.html" },
+    { "src": "/contact",     "dest": "/contact.html" },
+    { "src": "/admin",       "dest": "/admin.html" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)",        "dest": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options",        "value": "DENY" },
+        { "key": "X-XSS-Protection",       "value": "1; mode=block" },
+        { "key": "Referrer-Policy",        "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ]
 }

@@ -73,7 +73,7 @@ function injectNav(activePage = '') {
   </div>
   <div class="mobile-actions">${authMobile}</div>
 </div>
-<a href="https://wa.me/254700000000?text=Hi%20Coach%20Linda%2C%20I'm%20interested%20in%20your%20programs!" 
+<a href="https://wa.me/254701685839?text=Hi%20Coach%20Linda%2C%20I'm%20interested%20in%20your%20programs!" 
    class="wa-float" target="_blank" rel="noopener" title="Chat on WhatsApp">
   <i class="fab fa-whatsapp"></i>
 </a>`;
@@ -98,7 +98,7 @@ function injectFooter() {
         <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         <a href="#" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://wa.me/254700000000" class="social-icon" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://wa.me/254701685839" class="social-icon" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
       </div>
     </div>

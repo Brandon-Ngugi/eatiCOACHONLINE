@@ -283,7 +283,7 @@ p { color: var(--text-muted); line-height: 1.8; }
   position: relative;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
   background: var(--primary-dark);
 }
 .hero-bg {
